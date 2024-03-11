@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AWS Amplify on Triển khai web tĩnh trên AWS Amplify</title>
+    <link>/vi/1-introduce/1.1-aws-amplify/</link>
+    <description>Recent content in AWS Amplify on Triển khai web tĩnh trên AWS Amplify</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>vi</language>
+    <atom:link href="/vi/1-introduce/1.1-aws-amplify/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
