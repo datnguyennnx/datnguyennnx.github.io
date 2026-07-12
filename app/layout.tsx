@@ -13,20 +13,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-
 export const metadata: Metadata = {
   title: "datnguyennnx - Engineer",
   description: "Break it down. Understand it. Build it right.",
   icons: {
     icon: [
-      { url: `${base}/favicon.ico` },
-      { url: `${base}/favicon-16x16.png`, sizes: "16x16", type: "image/png" },
-      { url: `${base}/favicon-32x32.png`, sizes: "32x32", type: "image/png" },
+      { url: "/favicon.ico" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
-    apple: [{ url: `${base}/apple-touch-icon.png` }],
+    apple: [{ url: "/apple-touch-icon.png" }],
   },
-  manifest: `${base}/site.webmanifest`,
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({

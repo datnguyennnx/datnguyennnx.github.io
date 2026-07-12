@@ -4,8 +4,6 @@ import Image from 'next/image'
 import Gallery from '@/app/components/gallery'
 import { HoverProvider, TerminalDisplay, experiences, useHover } from '@/app/components/experience-terminal'
 
-const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-
 function PreviousList() {
   const { active, setActive } = useHover()
 
@@ -21,7 +19,7 @@ function PreviousList() {
             active && active !== e.id ? 'opacity-30' : 'opacity-100'
           }`}
         >
-          <Image src={`${base}/${e.id}.webp`} alt="" width={28} height={28} className="rounded-md shrink-0" />
+          <Image src={`/${e.id}.webp`} alt="" width={28} height={28} className="rounded-md shrink-0" />
           <span className="text-foreground">{e.title}</span>
         </button>
       ))}

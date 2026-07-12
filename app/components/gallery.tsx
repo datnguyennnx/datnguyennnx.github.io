@@ -4,14 +4,12 @@ import { useCallback, useRef, useState } from 'react'
 import Image from 'next/image'
 import ImageModal from './image-modal'
 
-const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
-
 const images = [
-  { src: `${base}/pic1.webp`, rotation: 'rotate-2' },
-  { src: `${base}/pic2.webp`, rotation: '-rotate-2' },
-  { src: `${base}/pic3.webp`, rotation: 'rotate-2' },
-  { src: `${base}/pic4.webp`, rotation: 'rotate-2' },
-  { src: `${base}/pic5.webp`, rotation: '-rotate-2' },
+  { src: '/pic1.webp', rotation: 'rotate-2' },
+  { src: '/pic2.webp', rotation: '-rotate-2' },
+  { src: '/pic3.webp', rotation: 'rotate-2' },
+  { src: '/pic4.webp', rotation: 'rotate-2' },
+  { src: '/pic5.webp', rotation: '-rotate-2' },
 ] as const
 
 interface ModalState {
