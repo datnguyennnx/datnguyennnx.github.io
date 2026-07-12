@@ -8,7 +8,7 @@ function PreviousList() {
   const { active, setActive } = useHover()
 
   return (
-    <div className="flex flex-col space-y-1.5 sm:space-y-1">
+    <div className="flex flex-col space-y-1.5 sm:space-y-4">
       <p className="text-[11px] sm:text-xs font-medium tracking-wider text-muted-foreground/40 uppercase">Previous</p>
       {experiences.map(e => (
         <button
