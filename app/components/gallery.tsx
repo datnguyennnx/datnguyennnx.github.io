@@ -10,6 +10,7 @@ const images = [
   { src: '/pic3.webp', rotation: 'rotate-2' },
   { src: '/pic4.webp', rotation: 'rotate-2' },
   { src: '/pic5.webp', rotation: '-rotate-2' },
+  { src: '/pic6.webp', rotation: 'rotate-2' },
 ] as const
 
 interface ModalState {
