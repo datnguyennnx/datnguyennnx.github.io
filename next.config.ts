@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   pageExtensions: ["ts", "tsx", "mdx"],
+  experimental: {
+    mdxRs: true,
+  },
 };
 
 const withMDX = createMDX({
