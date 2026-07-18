@@ -1,5 +1,5 @@
-import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "export",
@@ -8,9 +8,6 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   pageExtensions: ["ts", "tsx", "mdx"],
-  experimental: {
-    mdxRs: true,
-  },
 };
 
 const withMDX = createMDX({
