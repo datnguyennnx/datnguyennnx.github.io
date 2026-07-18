@@ -2,12 +2,16 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAllNotes } from "@/lib/content/queries";
 import BacklinkList from "@/app/notes/_components/backlink-list";
+import { useMDXComponents as buildMDXComponents } from "@/mdx-components";
 
 interface PageProps {
   params: Promise<{ category: string; slug: string }>;
 }
 
 const notes = getAllNotes();
+
+/** Pre-resolve MDX component overrides (pure function, not a hook despite the name). */
+const mdxComponents = buildMDXComponents({});
 
 export async function generateStaticParams() {
   return notes.map((note) => ({
@@ -49,7 +53,9 @@ export default async function NotePage({ params }: PageProps) {
   const note = notes.find((n) => n.category === category && n.slug === slug);
   if (!note) notFound();
 
-  const { default: MDXContent } = await import(`@/content/notes/${category}/${slug}.mdx`);
+  const { default: MDXContent } = await import(
+    `@/content/_generated/pages/${category}/${slug}.jsx`
+  );
 
   return (
     <article className="prose prose-neutral dark:prose-invert max-w-prose mx-auto">
@@ -81,7 +87,7 @@ export default async function NotePage({ params }: PageProps) {
       </header>
 
       <div className="mdx-content leading-relaxed">
-        <MDXContent />
+        <MDXContent components={mdxComponents} />
       </div>
 
       <div className="not-prose mt-8">

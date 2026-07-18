@@ -16,6 +16,7 @@
 import { readFileSync, readdirSync, existsSync, mkdirSync, cpSync, writeFileSync } from "fs";
 import { join, basename } from "path";
 import matter from "gray-matter";
+import { compile } from "@mdx-js/mdx";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -136,8 +137,12 @@ function preprocessBody(body: string, category: string): string {
 /**
  * Walk `dir` and process every `.mdx` file found, populating `notesContent`.
  * Each note is keyed by `{category}/{slug}`.
+ * Additionally, compiles each MDX file to a JSX module for runtime import.
  */
-function processMdxFiles(dir: string, notesContent: Record<string, NoteContent>): void {
+async function processMdxFiles(
+  dir: string,
+  notesContent: Record<string, NoteContent>,
+): Promise<void> {
   let items: { name: string; isDir: boolean }[];
   try {
     items = readdirSync(dir, { withFileTypes: true })
@@ -152,7 +157,7 @@ function processMdxFiles(dir: string, notesContent: Record<string, NoteContent>)
     const fullPath = join(dir, item.name);
 
     if (item.isDir) {
-      processMdxFiles(fullPath, notesContent);
+      await processMdxFiles(fullPath, notesContent);
     } else if (item.name.endsWith(".mdx")) {
       const slug = basename(item.name, ".mdx");
       const category = basename(dir);
@@ -173,7 +178,19 @@ function processMdxFiles(dir: string, notesContent: Record<string, NoteContent>)
         body: processedBody,
       };
 
+      // NEW: Compile MDX to JSX module for runtime import (avoids Turbopack MDX issues)
+      const compiled = await compile(processedBody, {
+        format: "mdx",
+      });
+      const outputDir = join(GENERATED_DIR, "pages", category);
+      const outputPath = join(outputDir, `${slug}.jsx`);
+      if (!existsSync(outputDir)) {
+        mkdirSync(outputDir, { recursive: true });
+      }
+      writeFileSync(outputPath, String(compiled));
+
       console.log(`  [ok] ${key}`);
+      console.log(`  [compile] ${outputPath}`);
     }
   }
 }
@@ -232,7 +249,7 @@ function countTreeFolders(entries: TreeViewElement[]): number {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
-function main(): void {
+async function main(): Promise<void> {
   console.log("\n[build-notes-content.ts] Starting...\n");
 
   // 1. Build directory tree
@@ -245,7 +262,7 @@ function main(): void {
   // 2. Process MDX files
   console.log("[2/4] Processing MDX files...");
   const notesContent: Record<string, NoteContent> = {};
-  processMdxFiles(NOTES_DIR, notesContent);
+  await processMdxFiles(NOTES_DIR, notesContent);
   const noteCount = Object.keys(notesContent).length;
   console.log(`  [ok] Processed ${noteCount} note(s)\n`);
 
@@ -271,4 +288,7 @@ function main(): void {
   console.log(`\n[done] Build complete — ${noteCount} note(s) processed.\n`);
 }
 
-main();
+main().catch((err) => {
+  console.error("[fatal]", err);
+  process.exit(1);
+});

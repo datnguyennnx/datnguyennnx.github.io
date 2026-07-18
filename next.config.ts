@@ -1,4 +1,3 @@
-import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -8,14 +7,9 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   pageExtensions: ["ts", "tsx", "mdx"],
+  experimental: {
+    mdxRs: true,
+  },
 };
 
-const withMDX = createMDX({
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: ["remark-frontmatter", "remark-mdx-frontmatter"],
-    rehypePlugins: ["rehype-mdx-import-media"],
-  },
-});
-
-export default withMDX(nextConfig);
+export default nextConfig;
