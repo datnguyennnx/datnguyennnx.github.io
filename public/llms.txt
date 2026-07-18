@@ -1,0 +1,13 @@
+# datnguyennnx — Personal Site & Digital Garden
+
+## About
+A software engineer's personal site and digital garden. Content spans software engineering, system design, AI/ML, finance, and philosophy. Long-form notes blend technical depth with reflective writing.
+
+## Docs / Pages
+- Home: https://datnguyennnx.github.io/
+- Notes: https://datnguyennnx.github.io/notes
+- Settings: https://datnguyennnx.github.io/settings
+- Manifesto — First Message: https://datnguyennnx.github.io/notes/myth/manifesto
+
+## Sitemap
+https://datnguyennnx.github.io/sitemap.xml

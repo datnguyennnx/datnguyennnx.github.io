@@ -1,0 +1,2 @@
+# husky
+bun run lint-staged

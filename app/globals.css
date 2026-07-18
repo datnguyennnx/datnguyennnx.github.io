@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "shadcn/tailwind.css";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -27,6 +29,7 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-muted-secondary: var(--muted-secondary);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -42,75 +45,116 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --font-family-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-family-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-sans: var(--font-geist-sans);
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-page: 500ms;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@utility transition-link {
+  @apply motion-safe:transition-colors motion-safe:duration-150 ease-standard;
+}
+@utility focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/30;
+}
+@utility transition-interactive {
+  @apply motion-safe:transition-[color,background-color,border-color,box-shadow,transform] motion-safe:duration-200 ease-standard;
+}
+@utility transition-surface {
+  @apply motion-safe:transition-[color,background-color] motion-safe:duration-150 ease-standard;
+}
+@utility transition-element {
+  @apply motion-safe:transition-[opacity,background-color] motion-safe:duration-200 ease-standard;
+}
+@utility transition-gallery {
+  @apply motion-safe:transition-[opacity,transform] motion-safe:duration-300 ease-standard;
+}
+@utility transition-layout {
+  @apply motion-safe:transition-[background-color,box-shadow,padding] motion-safe:duration-300 ease-standard;
+}
+@utility skeleton-sm {
+  @apply motion-safe:animate-pulse rounded bg-muted/30;
+}
+@utility skeleton-md {
+  @apply motion-safe:animate-pulse rounded bg-muted/20;
+}
+@utility scrollbar-custom {
+  @apply motion-safe:transition-colors duration-150 ease-standard;
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(0.98 0.004 80);
-  --foreground: oklch(0.12 0.008 80);
-  --card: oklch(0.99 0.003 80);
-  --card-foreground: oklch(0.12 0.008 80);
-  --popover: oklch(0.99 0.003 80);
-  --popover-foreground: oklch(0.12 0.008 80);
-  --primary: oklch(0.23 0.01 80);
-  --primary-foreground: oklch(0.97 0.003 80);
-  --secondary: oklch(0.92 0.005 80);
-  --secondary-foreground: oklch(0.28 0.01 80);
-  --muted: oklch(0.94 0.004 80);
-  --muted-foreground: oklch(0.5 0.01 80);
-  --accent: oklch(0.88 0.005 80);
-  --accent-foreground: oklch(0.18 0.01 80);
-  --destructive: oklch(0.5 0.12 25);
-  --border: oklch(0.86 0.005 80);
-  --input: oklch(0.86 0.005 80);
-  --ring: oklch(0.6 0.01 80);
-  --chart-1: oklch(0.55 0.01 80);
-  --chart-2: oklch(0.45 0.01 80);
-  --chart-3: oklch(0.35 0.01 80);
-  --chart-4: oklch(0.65 0.01 80);
-  --chart-5: oklch(0.3 0.01 80);
-  --sidebar: oklch(0.96 0.004 80);
-  --sidebar-foreground: oklch(0.12 0.008 80);
-  --sidebar-primary: oklch(0.23 0.01 80);
-  --sidebar-primary-foreground: oklch(0.97 0.003 80);
-  --sidebar-accent: oklch(0.88 0.005 80);
-  --sidebar-accent-foreground: oklch(0.18 0.01 80);
-  --sidebar-border: oklch(0.86 0.005 80);
-  --sidebar-ring: oklch(0.6 0.01 80);
+  --radius: 0.45rem;
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.141 0.005 285.823);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.141 0.005 285.823);
+  --primary: oklch(0.21 0.006 285.885);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(0.967 0.001 286.375);
+  --muted-foreground: oklch(0.552 0.016 285.938);
+  --accent: oklch(0.967 0.001 286.375);
+  --accent-foreground: oklch(0.21 0.006 285.885);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.004 286.32);
+  --input: oklch(0.92 0.004 286.32);
+  --ring: oklch(0.705 0.015 286.067);
+  --chart-1: oklch(0.871 0.006 286.286);
+  --chart-2: oklch(0.552 0.016 285.938);
+  --chart-3: oklch(0.442 0.017 285.786);
+  --chart-4: oklch(0.37 0.013 285.805);
+  --chart-5: oklch(0.274 0.006 286.033);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.141 0.005 285.823);
+  --sidebar-primary: oklch(0.21 0.006 285.885);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.967 0.001 286.375);
+  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
+  --sidebar-border: oklch(0.92 0.004 286.32);
+  --sidebar-ring: oklch(0.705 0.015 286.067);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.141 0.005 285.823);
+  --muted-secondary: oklch(from var(--muted-foreground) l c h / 0.3);
 }
 
 .dark {
-  --background: oklch(0.15 0.006 60);
-  --foreground: oklch(0.94 0.006 80);
-  --card: oklch(0.18 0.006 60);
-  --card-foreground: oklch(0.94 0.006 80);
-  --popover: oklch(0.18 0.006 60);
-  --popover-foreground: oklch(0.94 0.006 80);
-  --primary: oklch(0.88 0.006 80);
-  --primary-foreground: oklch(0.15 0.006 60);
-  --secondary: oklch(0.23 0.006 60);
-  --secondary-foreground: oklch(0.94 0.006 80);
-  --muted: oklch(0.2 0.006 60);
-  --muted-foreground: oklch(0.68 0.008 80);
-  --accent: oklch(0.26 0.006 60);
-  --accent-foreground: oklch(0.94 0.006 80);
-  --destructive: oklch(0.55 0.12 25);
-  --border: oklch(0.28 0.006 60);
-  --input: oklch(0.28 0.006 60);
-  --ring: oklch(0.48 0.008 80);
-  --chart-1: oklch(0.8 0.006 80);
-  --chart-2: oklch(0.7 0.006 80);
-  --chart-3: oklch(0.6 0.006 80);
-  --chart-4: oklch(0.5 0.006 80);
-  --chart-5: oklch(0.4 0.006 80);
-  --sidebar: oklch(0.18 0.006 60);
-  --sidebar-foreground: oklch(0.94 0.006 80);
-  --sidebar-primary: oklch(0.88 0.006 80);
-  --sidebar-primary-foreground: oklch(0.15 0.006 60);
-  --sidebar-accent: oklch(0.26 0.006 60);
-  --sidebar-accent-foreground: oklch(0.94 0.006 80);
-  --sidebar-border: oklch(0.28 0.006 60);
-  --sidebar-ring: oklch(0.48 0.008 80);
+  --background: oklch(0.141 0.005 285.823);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.21 0.006 285.885);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.21 0.006 285.885);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.92 0.004 286.32);
+  --primary-foreground: oklch(0.21 0.006 285.885);
+  --secondary: oklch(0.274 0.006 286.033);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.274 0.006 286.033);
+  --muted-foreground: oklch(0.705 0.015 286.067);
+  --accent: oklch(0.274 0.006 286.033);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.552 0.016 285.938);
+  --chart-1: oklch(0.871 0.006 286.286);
+  --chart-2: oklch(0.552 0.016 285.938);
+  --chart-3: oklch(0.442 0.017 285.786);
+  --chart-4: oklch(0.37 0.013 285.805);
+  --chart-5: oklch(0.274 0.006 286.033);
+  --sidebar: oklch(0.21 0.006 285.885);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.274 0.006 286.033);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.552 0.016 285.938);
+  --muted-secondary: oklch(from var(--muted-foreground) l c h / 0.3);
 }
 
 @layer base {
@@ -121,8 +165,6 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
 
   * {
     -ms-overflow-style: none;
@@ -133,21 +175,26 @@
     display: none;
   }
 
-/* Theme transition — raw CSS variables */
-:root {
-  --theme-duration: 400ms;
-  --theme-easing: ease;
-}
-
-@keyframes theme-out {
-  to {
-    opacity: 0;
+  /* Theme transition — raw CSS variables */
+  :root {
+    --theme-duration: 400ms;
+    --theme-easing: cubic-bezier(0.4, 0, 0.2, 1);
   }
-}
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 
-@keyframes theme-in {
-  from {
-    opacity: 0;
+  @keyframes theme-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes theme-in {
+    from {
+      opacity: 0;
+    }
   }
 }
 
@@ -165,5 +212,17 @@
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation-duration: 0s;
+  }
+}
+
+/* Global reduced-motion catch-all — overrides every animation/transition */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
